@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"  xmlns:th="http://www.thymeleaf.org" >
+
+
+<head>
+<meta charset="UTF-8">
+<title>TANIE-DAILY.PL - Ogłoszenia motoryzacyjne</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+   	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+    <link rel="stylesheet" href="gallery-grid.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/css/fontawesome-iconpicker.css">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/css/fontawesome-iconpicker.min.css">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.js">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="bootstrap/css/_glyphicons.css"> 
+  <script
+  src="https://code.jquery.com/jquery-2.1.0.js"
+  integrity="sha256-D6d1KSapXjq2tfZ6Ie9AYozkRHyB3fT2ys9mO2+4Wvc="
+  crossorigin="anonymous"></script>
+<script th:src="@{~/jQuery/jquery-main.js}"></script>
+
+  <link rel="stylesheet" id="ao_optimized_gfonts" href="https://fonts.googleapis.com/css?family=Work+Sans">
+  <link rel="stylesheet" th:href="@{~/css/style.css}">
+
+</head>
+<body onload="bodyonload();">
+
+<nav class="navbar navbar-expand-lg mx-auto fixed-top " id="naglowek">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"> <i class="fa fa-navicon" style="color:#142355; font-size:28px;"></i></span>
+  </button>
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+<a th:href="@{/}"><button class="btn ml-0 logo-button"  id="dodaj">tanie-daily.pl</button></a>
+	<ul class="navbar-nav mr-auto mx-auto">
+	  
+	<a th:href="@{/samochody}"><li class="btn nav-item text-center type-button" value="car"><i class="fa fa-car"></i><br>
+        Samochody
+      </li>
+      </a>
+      	<a th:href="@{/motocykle}"><li class=" btn nav-item text-center type-button" value="moto"><i class="fa fa-motorcycle"></i><br>
+        Motocykle
+      </li>
+      </a>
+          <a th:href="@{/czesci}"><li value="parts" class="btn nav-item type-button text-center"><i class="fa fa-cogs"></i><br>
+        Części
+      </li>
+      </a>
+      
+      </ul>
+      	  <a th:href="@{/o-mnie}"><li value="omnie" class="btn nav-item type-button mr-3"><i class="fa fa-user"></i><br>
+        O mnie
+      </li>
+      </a>
+      
+      <a th:href="@{/nowe-ogloszenie}"><button class="btn mr-0 add-advertisement-button"  id="dodaj"><i class="fa fa-plus"></i>&nbsp;&nbsp;Dodaj ogłoszenie</button></a>
+
+</div>
+</nav>
+
+<div class="container">
+
+	<div class="row">
+	
+		<div class="col-10 mx-auto rounded text-center filter-pane h4">
+				Dodaj ogłoszenie
+		</div>
+		
+	</div>
+	
+	
+		<div class="row col-10 mx-auto bg-light rounded result-pane ">
+			
+			<div class="col-10 mx-auto text-center">
+			
+				<button class="btn pr-5 pl-5 btn-choose mr-4" value="car"><i class="fa fa-car"></i><br>Samochody</button>
+				<button class="btn pr-5 pl-5 btn-choose mr-4" value="moto"><i class="fa fa-motorcycle"></i><br>Motocykle</button>
+				<button class="btn pr-5 pl-5 btn-choose" value="part"><i class="fa fa-cogs"></i><br>Części</button>
+			</div>
+		</div>
+		
+		
+		<div class="row col-10 mx-auto bg-light rounded mt-5 add-form-car" id="car">
+			<p class="text-center" style="color:#142355">Ogłoszenie samochodowe</p>
+			
+<form method="POST" enctype="multipart/form-data" th:action="@{/save-car}" th:object="${tempCar}">
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="inputMark">Marka<span class="redstar">*</span></label>
+      <select class="form-control" th:field="*{mark}" id="inputMark" placeholder="Marka" required>
+      	<option value="">Wybierz markę</option>
+      	<option value="Aston Martin">Aston Martin</option>
+      	<option value="Alfa Romeo">Alfa Romeo</option>
+      	<option value="Audi">Audi</option>
+      	<option value="Bentley">Bentley</option>
+      	<option value="BMW">BMW</option>
+      	<option value="Bugatti">Bugatti</option>
+      	<option value="Cadillac">Cadillac</option>
+      	<option value="Chevrolet">Chevrolet</option>
+      	<option value="Chrysler">Chrysler</option>
+      	<option value="Citroen">Citroen</option>
+      	<option value="Cupra">Cupra</option>
+      	<option value="Dacia">Dacia</option>
+      	<option value="Daihatsu">Daihatsu</option>
+      	<option value="Dodge">Dodge</option>
+      	<option value="Ferrari">Ferrari</option>
+      	<option value="Fiat">Fiat</option>
+      	<option value="Ford">Ford</option>
+      	<option value="Honda">Honda</option>
+      	<option value="Hyundai">Hyundai</option>
+      	<option value="Hummer">Hummer</option>
+      	<option value="Infiniti">Infiniti</option>
+      	<option value="Isuzu">Isuzu</option>
+      	<option value="Jaguar">Jaguar</option>
+      	<option value="Jeep">Jeep</option>
+      	<option value="KIA">KIA</option>
+      	<option value="Koenigsegg">Koenigsegg</option>
+      	<option value="Lamborghini">Lamborghini</option>
+      	<option value="Lancia">Lancia</option>
+      	<option value="Land Rover">Land Rover</option>
+      	<option value="Maserati">Maserati</option>
+      	<option value="Mercedes-Benz">Mercedes-Benz</option>
+      	<option value="Mazda">Mazda</option>
+      	<option value="Mitsubushi">Mitsubushi</option>
+      	<option value="Nissan">Nissan</option>
+      	<option value="Opel">Opel</option>
+      	<option value="Peugeot">Peugeot</option>
+      	<option value="Polonez">Polonez</option>
+      	<option value="Porsche">Porsche</option>
+      	<option value="Renault">Renault</option>
+      	<option value="Seat">Seat</option>
+      	<option value="Skoda">Skoda</option>
+      	<option value="Subaru">Subaru</option>
+      	<option value="Suzuki">Suzuki</option>
+      	<option value="Toyota">Toyota</option>
+      	<option value="Volkswagen">Volkswagen</option>
+      	<option value="Volvo">Volvo</option>
+
+      </select>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputModel">Model<span class="redstar">*</span></label>
+      <input type="text" class="form-control" th:field="*{model}" id="inputModel" placeholder="Model" required>
+    </div>
+  <div class="form-group col-md-2">
+    <label for="inputProdYear">Rok produkcji<span class="redstar">*</span></label>
+    <select class="form-control" th:field="*{prodYear}" id="inputProdYear" required>
+    	
+	</select>
+	  
+  </div>
+  
+    <div class="form-group col-md-2">
+    <label for="inputType">Typ<span class="redstar">*</span></label>
+    <select class="form-control" th:field="*{type}" id="inputType" required>
+    	<option value="Kombi">Kombi</option>
+    	<option value="Sedan">Sedan</option>
+    	<option value="Hatchback">Hatchback</option>
+    	<option value="SUV">SUV</option>
+    	<option value="Coupe">Coupe</option>
+    	<option value="Kabriolet">Kabriolet</option>
+    	
+	</select>
+	  
+  </div>
+  
+  
+  </div>
+  
+
+  <div class="form-row">
+
+      
+  <div class="form-group col-md-3">
+      <label for="inputMileage">Przebieg<span class="redstar">*</span></label>
+      <input type="number" class="form-control" th:field="*{mileage}" id="inputMileage"placeholder="km" required>
+    </div>
+    
+  <div class="form-group col-md-3">
+      <label for="inputEngine">Pojemność silnika<span class="redstar">*</span></label>
+      <input type="number" class="form-control" th:field="*{engine}" id="inputEngine" min=45 max=7000 placeholder="cm3" required>
+    </div>
+     <div class="form-group col-md-3">
+      <label for="inputHorsepower">Moc<span class="redstar">*</span></label>
+      <input type="number" class="form-control" th:field="*{horsepower}" id="inputHorsepower" max=700 placeholder="km" required>
+    </div>
+    
+      <div class="form-group col-md-3 ">
+      <label for="inputFuel">Paliwo</label>
+      <select class="form-control" th:field="*{fuel}" id="inputFuel">
+      	<option value="benzyna">Benzyna</option>
+      	<option value="lpg">Benzyna + LPG</option>
+      	<option value="diesel">Diesel</option>
+    	</select>
+    </div>
+    
+    
+    <div class="form-group col-md-4">
+      <label for="inputGearbox">Skrzynia biegów<span class="redstar">*</span></label>
+      <select class="form-control" th:field="*{gearbox}" id="inputGearbox" required>
+      	<option value="Manualna">Manualna</option>
+      	<option value="Automatyczna dwusprzęgłowa DSG">Automatyczna dwusprzęgłowa (DSG)</option>
+      	<option value="Automatyczna hydrauliczna (klasyczna)">Automatyczna hydrauliczna (klasyczna)</option>
+      	<option value="SMG">SMG</option>
+      	<option value="Bezstopniowa CVT">Bezstopniowa CVT</option>
+    	</select>
+    </div>	
+    
+    
+        <div class="form-group col-md-4">
+    	<label for="inputDrive">Napęd</label>
+    	<select class="form-control" th:field="*{drive}" id="inputDrive">
+    		<option value="4x4 dołączany ręcznie">4x4 dołączany ręcznie</option>
+    		<option value="4x4 dołączany automatycznie">4x4 dołączany automatycznie</option>
+    		<option value="4x4 stały">4x4 stały</option>
+    		<option value="Na tylną oś">Na tylną oś</option>
+    		<option value="Na przednią oś">Na przednią oś</option>
+    	</select>
+    
+    </div>
+    </div>
+    
+    
+    <div class="form-row">
+    
+    
+    	<div class="form-group col-md-2 col-sm-6 col-12">
+		    <label for="inputUncrashed">Bezwypadkowy</label>
+		    	<select class="true-false form-control" th:field="*{uncrashed}" id="inputUncrashed">
+		    	</select>
+	 	</div>
+  	
+
+    	<div class="form-group col-md-2 col-sm-6 col-12">
+		    <label for="inputImported">Sprowadzony</label>
+		    	<select class="true-false form-control" th:field="*{overseas}" id="inputImported">
+		    	</select>
+	 	</div>
+	
+	
+    	<div class="form-group col-md-2 col-sm-6 col-12">
+		    <label for="inputRegistered">Zarejestrowany w Polsce</label>
+		    	<select class="true-false form-control" th:field="*{registered}" id="inputRegistered">
+		    	</select>
+	 	</div>
+  	
+  	</div>
+  	
+  	<div class="form-row">
+	  	<div class="form-group col-md-12">
+	  	
+  			<label for="inputDescription">Nagłowek ogłoszenia</label>
+  				<textarea onkeyup="updateIloscHeader();" id="inputDescription" class="no-copy-paste form-control" th:field="*{header}" maxlength="50" onkeypress="if (this.value.length > 50) { return false; }"></textarea>
+	  		<label for="inputDescription" style="margin-left:10%;">Dozwolona ilość znaków: <span id="iloscHeader">50</span></label>
+	  	</div>
+
+  </div>
+  	
+  	
+  	  	<div class="form-row">
+	  	
+  			<label for="inputAdditional">Dodatkowe wyposażenie</label>
+  			<input type="text" th:field="*{additionalEquipment}" class="form-control" id="inputAdditional" style="visibility:hidden;'"/>
+  		
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Radio">Radio</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Klimatyzacja">Klimatyzacja</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block"  value="Tempomat">Tempomat</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block"  value="Aktywny tempomat">Aktywny tempomat</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block"  value="CD">CD</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block"  value="Centralny zamek">Centralny zamek</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Immobilizer">Immobilizer</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Poduszki powietrzne">Poduszki powietrzne</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Wspomaganie kierownicy">Wspomaganie kierownicy</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Alufelgi">Alufelgi</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Alarm">Alarm</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Asystent parkowania">Asystent parkowania</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Bluetooth">Bluetooth</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Czujnik deszczu">Czujnik deszczu</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Czujnik martwego pola">Czujnik martwego pola</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Czujniki parkowania przednie">Czujniki parkowania przednie</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Czujniki parkowania tylne">Czujniki parkowania tylne</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Dach panoramiczny">Dach panoramiczny</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Elektrochromatyczne lusterka boczke">Elektrochromatyczne lusterka boczke</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Elektrochromatyczne lusterko wsteczne">Elektrochromatyczne lusterko wsteczne</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Elektryczne szyby przednie">Elektryczne szyby przednie</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Elektryczne szyby tylne">Elektryczne szyby tylne</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="ESP">ESP</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="AUX">AUX</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="USB">USB</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Hak">Hak</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Isofix">Isofix</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Kamera cofania">Kamera cofania</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Komputer pokładowy">Komputer pokładowy</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Nawigacja">Nawigacja</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="WEBASTO">WEBASTO</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Podgrzewana przednia szyba">Podgrzewana przednia szyba</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Podgrzewane lusterka boczne">Podgrzewane lusterka boczne</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Podgrzewane przednie fotele">Podgrzewane przednie fotele</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Podgrzewane tylne fotele">Podgrzewane tylne fotele</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Przyciemniane szyby">Przyciemniane szyby</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Relingi">Relingi</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="System start-stop">System start-stop</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Szyberdach">Szyberdach</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Światła do jazdy dziennej">Światła do jazdy dziennej</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Światła LED">Światła LED</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Światła xenonowe">Światła xenonowe</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Skórzana tapicerka">Skórzana tapicerka</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Kierownica wielofunkcyjna">Kierownica wielofunkcyjna</button></div>
+<div class="col"><button type="button" class="btn additional-equipment-button btn-block " value="Zmieniarka CD">Zmieniarka CD</button></div>
+	  	</div>
+
+  	
+  	<div class="form-row"> 
+	  	<div class="form-group col-md-12">
+	  	
+  			<label for="inputDescriptionLong">Opis</label>
+  				<textarea onkeyup = "updateIloscDescriptionLong();" id="inputDescriptionLong" class="form-control no-copy-paste" th:field="*{description}" style="height:250px;" onkeypress="if (this.value.length > 250) { return false; }"></textarea>
+	  		<label for="inputDescriptionLong" style="margin-left:10%;">Dozwolona ilość znaków: <span id="iloscDescriptionLong">250</span></label>
+	  	</div>
+
+  </div>
+  
+  
+  <div class="text-center col-10 mx-auto"><button class="border btn bg-white text-dark" id="sendImageButton" type="button" style="height:90%;width:90%;"><i style="font-size:70px;" class="fa fa-camera"></i><br>Dodaj zdjęcia</button></div>
+  
+  
+  
+  <div class="form-row">
+  <div class="form-group col-md-3">
+      <label for="inputPrice">Cena<span class="redstar">*</span></label>
+      <input type="number" class="form-control" th:field="*{price}" id="inputPrice" placeholder="PLN" required>
+  </div>
+  
+  </div>
+  <div class="form-row">
+  	<div class="form-group col-md-3">
+  		<label for="inputName">Imię</label>
+  			<input type="text" class="form-control" id="inputName" th:field="*{name}">
+  	</div>
+  	
+  	<div class="form-group col-md-3">
+  		<label for="inputCity">Miasto</label>
+  			<input type="text" class="form-control" th:field="*{city}"  id="inputCity" list="lista-miejsc" autocomplete="on" required/>
+ 	
+  	</div>
+  	
+  	<div class="form-group col-md-3">
+  		<label for="inputPhone">Numer telefonu</label>
+  			<input type="tel" class="form-control" th:field="*{phone}"  id="inputPhone" pattern="[0-9]{9}" required title="555666777"/>
+ 				  <small id="inputPhone2" class="form-text text-muted">format: 111222333</small>
+  	</div>
+  	
+  	  	<div class="form-group col-md-3">
+  		<label for="inputEmail">E-mail<span class="redstar">*</span>	</label>
+  			<input type="email" class="form-control" id="inputEmail" name="email" required/>
+  			  <small id="inputEmail2" class="form-text text-muted">Wymagany do <br>zarządzania ogłoszeniem.</small>
+ 	</div>
+  
+  </div>
+  
+  
+	<div class="form-row" style="display:none;">
+		<div class="form-group col-md-8">
+			<label for="inputPhotos">Zdjęcia</label>
+			<input type="file" class="form-control-file" id="inputPhotos" name="photos" accept="image/*" multiple >
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="form-row">
+	<div class="from-group col-md-8 text-center mx-auto">
+
+<button type="submit" class="btn btn-send-form px-5 py-2 mt-4 text-center mb-5">Dodaj ogłoszenie</button>
+
+</div>
+</div>
+
+
+</form>
+
+
+
+	</div>
+		
+
+
+
+
+		
+		
+	
+		
+				
+	
+		<div class="row col-10 mx-auto bg-light rounded mt-5 add-form-car" id="moto">
+			<p class="text-center" style="color:#142355">Ogłoszenie motocyklowe</p>
+		
+		ZAPRASZAM WKRÓTCE :)
+		</div>		
+
+<div class="row col-10 mx-auto bg-light rounded mt-5 add-form-car" id="part">
+		
+		<p class="text-center" style="color:#142355">Ogłoszenie z częścią</p>
+		ZAPRASZAM WKRÓTCE :)
+			
+			<br>
+			
+		
+		
+		
+		</div>
+		
+
+</div>
+</div>
+<div class="footer text-center sticky fixed-bottom">tanie-daily.pl</div>
+
+</body>
+</html>
+
+	<datalist id="lista-miejsc">
+
+<option>Aleksandrów Kujawski , aleksandrowski , kujawsko-pomorskiez</option>
+<option>Aleksandrów Łódzki , zgierski , łódzkie</option>
+<option>Alwernia , chrzanowski , małopolskie</option>
+<option>Andrychów , wadowicki , małopolskie</option>
+<option>Annopol , kraśnicki , lubelskie</option>
+<option>Augustów , augustowski , podlaskie</option>
+<option>Babimost , zielonogórski , lubuskie</option>
+<option>Baborów , głubczycki , opolskie</option>
+<option>Baranów Sandomierski , tarnobrzeski , podkarpackie</option>
+<option>Barcin , żniński , kujawsko-pomorskie</option>
+<option>Barczewo , olsztyński , warmińsko-mazurskie</option>
+<option>Bardo , ząbkowicki , dolnośląskie</option>
+<option>Barlinek , myśliborski , zachodniopomorskie</option>
+<option>Bartoszyce , bartoszycki , warmińsko-mazurskie</option>
+<option>Barwice , szczecinecki , zachodniopomorskie</option>
+<option>Bełchatów , bełchatowski , łódzkie</option>
+<option>Bełżyce , lubelski , lubelskie</option>
+<option>Będzin , będziński , śląskie</option>
+<option>Biała , prudnicki , opolskie</option>
+<option>Biała Piska , piski , warmińsko-mazurskie</option>
+<option>Biała Podlaska , Biała Podlaska , lubelskie</option>
+<option>Biała Rawska , rawski , łódzkie</option>
+<option>Białobrzegi , białobrzeski , mazowieckie</option>
+<option>Białogard , białogardzki , zachodniopomorskie</option>
+<option>Biały Bór , szczecinecki , zachodniopomorskie</option>
+<option>Białystok , Białystok , podlaskie</option>
+<option>Biecz , gorlicki , małopolskie</option>
+<option>Bielawa , dzierżoniowski , dolnośląskie</option>
+<option>Bielsk Podlaski , bielski , podlaskie</option>
+<option>Bielsko-Biała , Bielsko-Biała , śląskie</option>
+<option>Bieruń , bieruńsko-lędziński , śląskie</option>
+<option>Bierutów , oleśnicki , dolnośląskie</option>
+<option>Bieżuń , żuromiński , mazowieckie</option>
+<option>Biłgoraj , biłgorajski , lubelskie</option>
+<option>Biskupiec , olsztyński , warmińsko-mazurskie</option>
+<option>Bisztynek , bartoszycki , warmińsko-mazurskie</option>
+<option>Blachownia , częstochowski , śląskie</option>
+<option>Błaszki , sieradzki , łódzkie</option>
+<option>Błażowa , rzeszowski , podkarpackie</option>
+<option>Błonie , warszawski zachodni , mazowieckie</option>
+<option>Bobolice , koszaliński , zachodniopomorskie</option>
+<option>Bobowa , gorlicki , małopolskie</option>
+<option>Bochnia , bocheński , małopolskie</option>
+<option>Bodzentyn , kielecki , świętokrzyskie</option>
+<option>Bogatynia , zgorzelecki , dolnośląskie</option>
+<option>Boguchwała , rzeszowski , podkarpackie</option>
+<option>Boguszów-Gorce , wałbrzyski , dolnośląskie</option>
+<option>Bojanowo , rawicki , wielkopolskie</option>
+<option>Bolesławiec , bolesławiecki , dolnośląskie</option>
+<option>Bolków , jaworski , dolnośląskie</option>
+<option>Borek Wielkopolski , gostyński , wielkopolskie</option>
+<option>Borne Sulinowo , szczecinecki , zachodniopomorskie</option>
+<option>Braniewo , braniewski , warmińsko-mazurskie</option>
+<option>Brańsk , bielski , podlaskie</option>
+<option>Brodnica , brodnicki , kujawsko-pomorskie</option>
+<option>Brok , ostrowski , mazowieckie</option>
+<option>Brusy , chojnicki , pomorskie</option>
+<option>Brwinów , pruszkowski , mazowieckie</option>
+<option>Brzeg , brzeski , opolskie</option>
+<option>Brzeg Dolny , wołowski , dolnośląskie</option>
+<option>Brzesko , brzeski , małopolskie</option>
+<option>Brzeszcze , oświęcimski , małopolskie</option>
+<option>Brześć Kujawski , włocławski , kujawsko-pomorskie</option>
+<option>Brzeziny , brzeziński , łódzkie</option>
+<option>Brzostek , dębicki , podkarpackie</option>
+<option>Brzozów , brzozowski , podkarpackie</option>
+<option>Buk , poznański , wielkopolskie</option>
+<option>Bukowno , olkuski , małopolskie</option>
+<option>Busko-Zdrój , buski , świętokrzyskie</option>
+<option>Bychawa , lubelski , lubelskie</option>
+<option>Byczyna , kluczborski , opolskie</option>
+<option>Bydgoszcz , Bydgoszcz , kujawsko-pomorskie</option>
+<option>Bystrzyca Kłodzka , kłodzki , dolnośląskie</option>
+<option>Bytom , Bytom , śląskie</option>
+<option>Bytom Odrzański , nowosolski , lubuskie</option>
+<option>Bytów , bytowski , pomorskie</option>
+<option>Cedynia , gryfiński , zachodniopomorskie</option>
+<option>Chełm , Chełm , lubelskie</option>
+<option>Chełmek , oświęcimski , małopolskie</option>
+<option>Chełmno , chełmiński , kujawsko-pomorskie</option>
+<option>Chełmża , toruński , kujawsko-pomorskie</option>
+<option>Chęciny , kielecki , świętokrzyskie</option>
+<option>Chmielnik , kielecki , świętokrzyskie</option>
+<option>Chocianów , polkowicki , dolnośląskie</option>
+<option>Chociwel , stargardzki , zachodniopomorskie</option>
+<option>Chocz , pleszewski , wielkopolskie</option>
+<option>Chodecz , włocławski , kujawsko-pomorskie</option>
+<option>Chodzież , chodzieski , wielkopolskie</option>
+<option>Chojna , gryfiński , zachodniopomorskie</option>
+<option>Chojnice , chojnicki , pomorskie</option>
+<option>Chojnów , legnicki , dolnośląskie</option>
+<option>Choroszcz , białostocki , podlaskie</option>
+<option>Chorzele , przasnyski , mazowieckie</option>
+<option>Chorzów , Chorzów , śląskie</option>
+<option>Choszczno , choszczeński , zachodniopomorskie</option>
+<option>Chrzanów , chrzanowski , małopolskie</option>
+<option>Ciechanowiec , wysokomazowiecki , podlaskie</option>
+<option>Ciechanów , ciechanowski , mazowieckie</option>
+<option>Ciechocinek , aleksandrowski , kujawsko-pomorskie</option>
+<option>Cieszanów , lubaczowski , podkarpackie</option>
+<option>Cieszyn , cieszyński , śląskie</option>
+<option>Ciężkowice , tarnowski , małopolskie</option>
+<option>Cybinka , słubicki , lubuskie</option>
+<option>Czaplinek , drawski , zachodniopomorskie</option>
+<option>Czarna Białostocka , białostocki , podlaskie</option>
+<option>Czarna Woda , starogardzki , pomorskie</option>
+<option>Czarne , człuchowski , pomorskie</option>
+<option>Czarnków , czarnkowsko-trzcianecki , wielkopolskie</option>
+<option>Czchów , brzeski , małopolskie</option>
+<option>Czechowice-Dziedzice , bielski , śląskie</option>
+<option>Czeladź , będziński , śląskie</option>
+<option>Czempiń , kościański , wielkopolskie</option>
+<option>Czerniejewo , gnieźnieński , wielkopolskie</option>
+<option>Czersk , chojnicki , pomorskie</option>
+<option>Czerwieńsk , zielonogórski , lubuskie</option>
+<option>Czerwionka-Leszczyny , rybnicki , śląskie</option>
+<option>Częstochowa , Częstochowa , śląskie</option>
+<option>Człopa , wałecki , zachodniopomorskie</option>
+<option>Człuchów , człuchowski , pomorskie</option>
+<option>Czyżew , wysokomazowiecki , podlaskie</option>
+<option>Ćmielów , ostrowiecki , świętokrzyskie</option>
+<option>Daleszyce , kielecki , świętokrzyskie</option>
+<option>Darłowo , sławieński , zachodniopomorskie</option>
+<option>Dąbie , kolski , wielkopolskie</option>
+<option>Dąbrowa Białostocka , sokólski , podlaskie</option>
+<option>Dąbrowa Górnicza , Dąbrowa Górnicza , śląskie</option>
+<option>Dąbrowa Tarnowska , dąbrowski , małopolskie</option>
+<option>Debrzno , człuchowski , pomorskie</option>
+<option>Dębica , dębicki , podkarpackie</option>
+<option>Dęblin , rycki , lubelskie</option>
+<option>Dębno , myśliborski , zachodniopomorskie</option>
+<option>Dobczyce , myślenicki , małopolskie</option>
+<option>Dobiegniew , strzelecko-drezdenecki , lubuskie</option>
+<option>Dobra , turecki , wielkopolskie</option>
+<option>Dobra , łobeski , zachodniopomorskie</option>
+<option>Dobre Miasto , olsztyński , warmińsko-mazurskie</option>
+<option>Dobrodzień , oleski , opolskie</option>
+<option>Dobrzany , stargardzki , zachodniopomorskie</option>
+<option>Dobrzyca , pleszewski , wielkopolskie</option>
+<option>Dobrzyń nad Wisłą , lipnowski , kujawsko-pomorskie</option>
+<option>Dolsk , śremski , wielkopolskie</option>
+<option>Drawno , choszczeński , zachodniopomorskie</option>
+<option>Drawsko Pomorskie , drawski , zachodniopomorskie</option>
+<option>Drezdenko , strzelecko-drezdenecki , lubuskie</option>
+<option>Drobin , płocki , mazowieckie</option>
+<option>Drohiczyn , siemiatycki , podlaskie</option>
+<option>Drzewica , opoczyński , łódzkie</option>
+<option>Dukla , krośnieński , podkarpackie</option>
+<option>Duszniki-Zdrój , kłodzki , dolnośląskie</option>
+<option>Dynów , rzeszowski , podkarpackie</option>
+<option>Działdowo , działdowski , warmińsko-mazurskie</option>
+<option>Działoszyce , pińczowski , świętokrzyskie</option>
+<option>Działoszyn , pajęczański , łódzkie</option>
+<option>Dzierzgoń , sztumski , pomorskie</option>
+<option>Dzierżoniów , dzierżoniowski , dolnośląskie</option>
+<option>Dziwnów , kamieński , zachodniopomorskie</option>
+<option>Elbląg , Elbląg , warmińsko-mazurskie</option>
+<option>Ełk , ełcki , warmińsko-mazurskie</option>
+<option>Frampol , biłgorajski , lubelskie</option>
+<option>Frombork , braniewski , warmińsko-mazurskie</option>
+<option>Garwolin , garwoliński , mazowieckie</option>
+<option>Gąbin , płocki , mazowieckie</option>
+<option>Gdańsk , Gdańsk , pomorskie</option>
+<option>Gdynia , Gdynia , pomorskie</option>
+<option>Giżycko , giżycki , warmińsko-mazurskie</option>
+<option>Glinojeck , ciechanowski , mazowieckie</option>
+<option>Gliwice , Gliwice , śląskie</option>
+<option>Głogów , głogowski , dolnośląskie</option>
+<option>Głogów Małopolski , rzeszowski , podkarpackie</option>
+<option>Głogówek , prudnicki , opolskie</option>
+<option>Głowno , zgierski , łódzkie</option>
+<option>Głubczyce , głubczycki , opolskie</option>
+<option>Głuchołazy , nyski , opolskie</option>
+<option>Głuszyca , wałbrzyski , dolnośląskie</option>
+<option>Gniew , tczewski , pomorskie</option>
+<option>Gniewkowo , inowrocławski , kujawsko-pomorskie</option>
+<option>Gniezno , gnieźnieński , wielkopolskie</option>
+<option>Gogolin , krapkowicki , opolskie</option>
+<option>Golczewo , kamieński , zachodniopomorskie</option>
+<option>Goleniów , goleniowski , zachodniopomorskie</option>
+<option>Golina , koniński , wielkopolskie</option>
+<option>Golub-Dobrzyń , golubsko-dobrzyński , kujawsko-pomorskie</option>
+<option>Gołańcz , wągrowiecki , wielkopolskie</option>
+<option>Gołdap , gołdapski , warmińsko-mazurskie</option>
+<option>Goniądz , moniecki , podlaskie</option>
+<option>Gorlice , gorlicki , małopolskie</option>
+<option>Gorzów Śląski , oleski , opolskie</option>
+<option>Gorzów Wielkopolski , Gorzów Wielkopolski , lubuskie</option>
+<option>Gostynin , gostyniński , mazowieckie</option>
+<option>Gostyń , gostyński , wielkopolskie</option>
+<option>Gościno , kołobrzeski , zachodniopomorskie</option>
+<option>Gozdnica , żagański , lubuskie</option>
+<option>Góra , górowski , dolnośląskie</option>
+<option>Góra Kalwaria , piaseczyński , mazowieckie</option>
+<option>Górowo Iławeckie , bartoszycki , warmińsko-mazurskie</option>
+<option>Górzno , brodnicki , kujawsko-pomorskie</option>
+<option>Grabów nad Prosną , ostrzeszowski , wielkopolskie</option>
+<option>Grajewo , grajewski , podlaskie</option>
+<option>Grodków , brzeski , opolskie</option>
+<option>Grodzisk Mazowiecki , grodziski , mazowieckie</option>
+<option>Grodzisk Wielkopolski , grodziski , wielkopolskie</option>
+<option>Grójec , grójecki , mazowieckie</option>
+<option>Grudziądz , Grudziądz , kujawsko-pomorskie</option>
+<option>Grybów , nowosądecki , małopolskie</option>
+<option>Gryfice , gryficki , zachodniopomorskie</option>
+<option>Gryfino , gryfiński , zachodniopomorskie</option>
+<option>Gryfów Śląski , lwówecki , dolnośląskie</option>
+<option>Gubin , krośnieński , lubuskie</option>
+<option>Hajnówka , hajnowski , podlaskie</option>
+<option>Halinów , miński , mazowieckie</option>
+<option>Hel , pucki , pomorskie</option>
+<option>Hrubieszów , hrubieszowski , lubelskie</option>
+<option>Iława , iławski , warmińsko-mazurskie</option>
+<option>Iłowa , żagański , lubuskie</option>
+<option>Iłża , radomski , mazowieckie</option>
+<option>Imielin , bieruńsko-lędziński , śląskie</option>
+<option>Inowrocław , inowrocławski , kujawsko-pomorskie</option>
+<option>Ińsko , stargardzki , zachodniopomorskie</option>
+<option>Iwonicz-Zdrój , krośnieński , podkarpackie</option>
+<option>Izbica Kujawska , włocławski , kujawsko-pomorskie</option>
+<option>Jabłonowo Pomorskie , brodnicki , kujawsko-pomorskie</option>
+<option>Janikowo , inowrocławski , kujawsko-pomorskie</option>
+<option>Janowiec Wielkopolski , żniński , kujawsko-pomorskie</option>
+<option>Janów Lubelski , janowski , lubelskie</option>
+<option>Jarocin , jarociński , wielkopolskie</option>
+<option>Jarosław , jarosławski , podkarpackie</option>
+<option>Jasień , żarski , lubuskie</option>
+<option>Jasło , jasielski , podkarpackie</option>
+<option>Jastarnia , pucki , pomorskie</option>
+<option>Jastrowie , złotowski , wielkopolskie</option>
+<option>Jastrzębie-Zdrój , Jastrzębie-Zdrój , śląskie</option>
+<option>Jawor , jaworski , dolnośląskie</option>
+<option>Jaworzno , Jaworzno , śląskie</option>
+<option>Jaworzyna Śląska , świdnicki , dolnośląskie</option>
+<option>Jedlicze , krośnieński , podkarpackie</option>
+<option>Jedlina-Zdrój , wałbrzyski , dolnośląskie</option>
+<option>Jedwabne , łomżyński , podlaskie</option>
+<option>Jelcz-Laskowice , oławski , dolnośląskie</option>
+<option>Jelenia Góra , Jelenia Góra , dolnośląskie</option>
+<option>Jeziorany , olsztyński , warmińsko-mazurskie</option>
+<option>Jędrzejów , jędrzejowski , świętokrzyskie</option>
+<option>Jordanów , suski , małopolskie</option>
+<option>Józefów , biłgorajski , lubelskie</option>
+<option>Józefów , otwocki , mazowieckie</option>
+<option>Jutrosin , rawicki , wielkopolskie</option>
+<option>Kalety , tarnogórski , śląskie</option>
+<option>Kalisz , Kalisz , wielkopolskie</option>
+<option>Kalisz Pomorski , drawski , zachodniopomorskie</option>
+<option>Kalwaria Zebrzydowska , wadowicki , małopolskie</option>
+<option>Kałuszyn , miński , mazowieckie</option>
+<option>Kamienna Góra , kamiennogórski , dolnośląskie</option>
+<option>Kamień Krajeński , sępoleński , kujawsko-pomorskie</option>
+<option>Kamień Pomorski , kamieński , zachodniopomorskie</option>
+<option>Kamieńsk , radomszczański , łódzkie</option>
+<option>Kańczuga , przeworski , podkarpackie</option>
+<option>Karczew , otwocki , mazowieckie</option>
+<option>Kargowa , zielonogórski , lubuskie</option>
+<option>Karlino , białogardzki , zachodniopomorskie</option>
+<option>Karpacz , jeleniogórski , dolnośląskie</option>
+<option>Kartuzy , kartuski , pomorskie</option>
+<option>Katowice , Katowice , śląskie</option>
+<option>Kazimierz Dolny , puławski , lubelskie</option>
+<option>Kazimierza Wielka , kazimierski , świętokrzyskie</option>
+<option>Kąty Wrocławskie , wrocławski , dolnośląskie</option>
+<option>Kcynia , nakielski , kujawsko-pomorskie</option>
+<option>Kędzierzyn-Koźle , kędzierzyńsko-kozielski , opolskie</option>
+<option>Kępice , słupski , pomorskie</option>
+<option>Kępno , kępiński , wielkopolskie</option>
+<option>Kętrzyn , kętrzyński , warmińsko-mazurskie</option>
+<option>Kęty , oświęcimski , małopolskie</option>
+<option>Kielce , Kielce , świętokrzyskie</option>
+<option>Kietrz , głubczycki , opolskie</option>
+<option>Kisielice , iławski , warmińsko-mazurskie</option>
+<option>Kleczew , koniński , wielkopolskie</option>
+<option>Kleszczele , hajnowski , podlaskie</option>
+<option>Kluczbork , kluczborski , opolskie</option>
+<option>Kłecko , gnieźnieński , wielkopolskie</option>
+<option>Kłobuck , kłobucki , śląskie</option>
+<option>Kłodawa , kolski , wielkopolskie</option>
+<option>Kłodzko , kłodzki , dolnośląskie</option>
+<option>Knurów , gliwicki , śląskie</option>
+<option>Knyszyn , moniecki , podlaskie</option>
+<option>Kobylin , krotoszyński , wielkopolskie</option>
+<option>Kobyłka , wołomiński , mazowieckie</option>
+<option>Kock , lubartowski , lubelskie</option>
+<option>Kolbuszowa , kolbuszowski , podkarpackie</option>
+<option>Kolno , kolneński , podlaskie</option>
+<option>Kolonowskie , strzelecki , opolskie</option>
+<option>Koluszki , łódzki wschodni , łódzkie</option>
+<option>Kołaczyce , jasielski , podkarpackie</option>
+<option>Koło , kolski , wielkopolskie</option>
+<option>Kołobrzeg , kołobrzeski , zachodniopomorskie</option>
+<option>Koniecpol , częstochowski , śląskie</option>
+<option>Konin , Konin , wielkopolskie</option>
+<option>Konstancin-Jeziorna , piaseczyński , mazowieckie</option>
+<option>Konstantynów Łódzki , pabianicki , łódzkie</option>
+<option>Końskie , konecki , świętokrzyskie</option>
+<option>Koprzywnica , sandomierski , świętokrzyskie</option>
+<option>Korfantów , nyski , opolskie</option>
+<option>Koronowo , bydgoski , kujawsko-pomorskie</option>
+<option>Korsze , kętrzyński , warmińsko-mazurskie</option>
+<option>Kosów Lacki , sokołowski , mazowieckie</option>
+<option>Kostrzyn , poznański , wielkopolskie</option>
+<option>Kostrzyn nad Odrą , gorzowski , lubuskie</option>
+<option>Koszalin , Koszalin , zachodniopomorskie</option>
+<option>Kościan , kościański , wielkopolskie</option>
+<option>Kościerzyna , kościerski , pomorskie</option>
+<option>Kowal , włocławski , kujawsko-pomorskie</option>
+<option>Kowalewo Pomorskie , golubsko-dobrzyński , kujawsko-pomorskie</option>
+<option>Kowary , jeleniogórski , dolnośląskie</option>
+<option>Koziegłowy , myszkowski , śląskie</option>
+<option>Kozienice , kozienicki , mazowieckie</option>
+<option>Koźmin Wielkopolski , krotoszyński , wielkopolskie</option>
+<option>Kożuchów , nowosolski , lubuskie</option>
+<option>Kórnik , poznański , wielkopolskie</option>
+<option>Krajenka , złotowski , wielkopolskie</option>
+<option>Kraków , Kraków , małopolskie</option>
+<option>Krapkowice , krapkowicki , opolskie</option>
+<option>Krasnobród , zamojski , lubelskie</option>
+<option>Krasnystaw , krasnostawski , lubelskie</option>
+<option>Kraśnik , kraśnicki , lubelskie</option>
+<option>Krobia , gostyński , wielkopolskie</option>
+<option>Krosno , Krosno , podkarpackie</option>
+<option>Krosno Odrzańskie , krośnieński , lubuskie</option>
+<option>Krośniewice , kutnowski , łódzkie</option>
+<option>Krotoszyn , krotoszyński , wielkopolskie</option>
+<option>Kruszwica , inowrocławski , kujawsko-pomorskie</option>
+<option>Krynica Morska , nowodworski , pomorskie</option>
+<option>Krynica-Zdrój , nowosądecki , małopolskie</option>
+<option>Krynki , sokólski , podlaskie</option>
+<option>Krzanowice , raciborski , śląskie</option>
+<option>Krzepice , kłobucki , śląskie</option>
+<option>Krzeszowice , krakowski , małopolskie</option>
+<option>Krzywiń , kościański , wielkopolskie</option>
+<option>Krzyż Wielkopolski , czarnkowsko-trzcianecki , wielkopolskie</option>
+<option>Książ Wielkopolski , śremski , wielkopolskie</option>
+<option>Kudowa-Zdrój , kłodzki , dolnośląskie</option>
+<option>Kunów , ostrowiecki , świętokrzyskie</option>
+<option>Kutno , kutnowski , łódzkie</option>
+<option>Kuźnia Raciborska , raciborski , śląskie</option>
+<option>Kwidzyn , kwidzyński , pomorskie</option>
+<option>Lądek-Zdrój , kłodzki , dolnośląskie</option>
+<option>Legionowo , legionowski , mazowieckie</option>
+<option>Legnica , Legnica , dolnośląskie</option>
+<option>Lesko , leski , podkarpackie</option>
+<option>Leszno , Leszno , wielkopolskie</option>
+<option>Leśna , lubański , dolnośląskie</option>
+<option>Leśnica , strzelecki , opolskie</option>
+<option>Lewin Brzeski , brzeski , opolskie</option>
+<option>Leżajsk , leżajski , podkarpackie</option>
+<option>Lębork , lęborski , pomorskie</option>
+<option>Lędziny , bieruńsko-lędziński , śląskie</option>
+<option>Libiąż , chrzanowski , małopolskie</option>
+<option>Lidzbark , działdowski , warmińsko-mazurskie</option>
+<option>Lidzbark Warmiński , lidzbarski , warmińsko-mazurskie</option>
+<option>Limanowa , limanowski , małopolskie</option>
+<option>Lipiany , pyrzycki , zachodniopomorskie</option>
+<option>Lipno , lipnowski , kujawsko-pomorskie</option>
+<option>Lipsk , augustowski , podlaskie</option>
+<option>Lipsko , lipski , mazowieckie</option>
+<option>Lubaczów , lubaczowski , podkarpackie</option>
+<option>Lubań , lubański , dolnośląskie</option>
+<option>Lubartów , lubartowski , lubelskie</option>
+<option>Lubawa , iławski , warmińsko-mazurskie</option>
+<option>Lubawka , kamiennogórski , dolnośląskie</option>
+<option>Lubień Kujawski , włocławski , kujawsko-pomorskie</option>
+<option>Lubin , lubiński , dolnośląskie</option>
+<option>Lublin , Lublin , lubelskie</option>
+<option>Lubliniec , lubliniecki , śląskie</option>
+<option>Lubniewice , sulęciński , lubuskie</option>
+<option>Lubomierz , lwówecki , dolnośląskie</option>
+<option>Luboń , poznański , wielkopolskie</option>
+<option>Lubraniec , włocławski , kujawsko-pomorskie</option>
+<option>Lubsko , żarski , lubuskie</option>
+<option>Lwówek , nowotomyski , wielkopolskie</option>
+<option>Lwówek Śląski , lwówecki , dolnośląskie</option>
+<option>Łabiszyn , żniński , kujawsko-pomorskie</option>
+<option>Łańcut , łańcucki , podkarpackie</option>
+<option>Łapy , białostocki , podlaskie</option>
+<option>Łasin , grudziądzki , kujawsko-pomorskie</option>
+<option>Łask , łaski , łódzkie</option>
+<option>Łaskarzew , garwoliński , mazowieckie</option>
+<option>Łaszczów , tomaszowski , lubelskie</option>
+<option>Łaziska Górne , mikołowski , śląskie</option>
+<option>Łazy , zawierciański , śląskie</option>
+<option>Łeba , lęborski , pomorskie</option>
+<option>Łęczna , łęczyński , lubelskie</option>
+<option>Łęczyca , łęczycki , łódzkie</option>
+<option>Łęknica , żarski , lubuskie</option>
+<option>Łobez , łobeski , zachodniopomorskie</option>
+<option>Łobżenica , pilski , wielkopolskie</option>
+<option>Łochów , węgrowski , mazowieckie</option>
+<option>Łomianki , warszawski zachodni , mazowieckie</option>
+<option>Łomża , Łomża , podlaskie</option>
+<option>Łosice , łosicki , mazowieckie</option>
+<option>Łowicz , łowicki , łódzkie</option>
+<option>Łódź , Łódź , łódzkie</option>
+<option>Łuków , łukowski , lubelskie</option>
+<option>Maków Mazowiecki , makowski , mazowieckie</option>
+<option>Maków Podhalański , suski , małopolskie</option>
+<option>Malbork , malborski , pomorskie</option>
+<option>Małogoszcz , jędrzejowski , świętokrzyskie</option>
+<option>Małomice , żagański , lubuskie</option>
+<option>Margonin , chodzieski , wielkopolskie</option>
+<option>Marki , wołomiński , mazowieckie</option>
+<option>Maszewo , goleniowski , zachodniopomorskie</option>
+<option>Miasteczko Śląskie , tarnogórski , śląskie</option>
+<option>Miastko , bytowski , pomorskie</option>
+<option>Michałowo , białostocki , podlaskie</option>
+<option>Miechów , miechowski , małopolskie</option>
+<option>Miejska Górka , rawicki , wielkopolskie</option>
+<option>Mielec , mielecki , podkarpackie</option>
+<option>Mieroszów , wałbrzyski , dolnośląskie</option>
+<option>Mieszkowice , gryfiński , zachodniopomorskie</option>
+<option>Międzybórz , oleśnicki , dolnośląskie</option>
+<option>Międzychód , międzychodzki , wielkopolskie</option>
+<option>Międzylesie , kłodzki , dolnośląskie</option>
+<option>Międzyrzec Podlaski , bialski , lubelskie</option>
+<option>Międzyrzecz , międzyrzecki , lubuskie</option>
+<option>Międzyzdroje , kamieński , zachodniopomorskie</option>
+<option>Mikołajki , mrągowski , warmińsko-mazurskie</option>
+<option>Mikołów , mikołowski , śląskie</option>
+<option>Mikstat , ostrzeszowski , wielkopolskie</option>
+<option>Milanówek , grodziski , mazowieckie</option>
+<option>Milicz , milicki , dolnośląskie</option>
+<option>Miłakowo , ostródzki , warmińsko-mazurskie</option>
+<option>Miłomłyn , ostródzki , warmińsko-mazurskie</option>
+<option>Miłosław , wrzesiński , wielkopolskie</option>
+<option>Mińsk Mazowiecki , miński , mazowieckie</option>
+<option>Mirosławiec , wałecki , zachodniopomorskie</option>
+<option>Mirsk , lwówecki , dolnośląskie</option>
+<option>Mława , mławski , mazowieckie</option>
+<option>Młynary , elbląski , warmińsko-mazurskie</option>
+<option>Modliborzyce , janowski , lubelskie</option>
+<option>Mogielnica , grójecki , mazowieckie</option>
+<option>Mogilno , mogileński , kujawsko-pomorskie</option>
+<option>Mońki , moniecki , podlaskie</option>
+<option>Morąg , ostródzki , warmińsko-mazurskie</option>
+<option>Mordy , siedlecki , mazowieckie</option>
+<option>Moryń , gryfiński , zachodniopomorskie</option>
+<option>Mosina , poznański , wielkopolskie</option>
+<option>Mrągowo , mrągowski , warmińsko-mazurskie</option>
+<option>Mrocza , nakielski , kujawsko-pomorskie</option>
+<option>Mrozy , miński , mazowieckie</option>
+<option>Mszana Dolna , limanowski , małopolskie</option>
+<option>Mszczonów , żyrardowski , mazowieckie</option>
+<option>Murowana Goślina , poznański , wielkopolskie</option>
+<option>Muszyna , nowosądecki , małopolskie</option>
+<option>Mysłowice , Mysłowice , śląskie</option>
+<option>Myszków , myszkowski , śląskie</option>
+<option>Myszyniec , ostrołęcki , mazowieckie</option>
+<option>Myślenice , myślenicki , małopolskie</option>
+<option>Myślibórz , myśliborski , zachodniopomorskie</option>
+<option>Nakło nad Notecią , nakielski , kujawsko-pomorskie</option>
+<option>Nałęczów , puławski , lubelskie</option>
+<option>Namysłów , namysłowski , opolskie</option>
+<option>Narol , lubaczowski , podkarpackie</option>
+<option>Nasielsk , nowodworski , mazowieckie</option>
+<option>Nekla , wrzesiński , wielkopolskie</option>
+<option>Nidzica , nidzicki , warmińsko-mazurskie</option>
+<option>Niemcza , dzierżoniowski , dolnośląskie</option>
+<option>Niemodlin , opolski , opolskie</option>
+<option>Niepołomice , wielicki , małopolskie</option>
+<option>Nieszawa , aleksandrowski , kujawsko-pomorskie</option>
+<option>Nisko , niżański , podkarpackie</option>
+<option>Nowa Dęba , tarnobrzeski , podkarpackie</option>
+<option>Nowa Ruda , kłodzki , dolnośląskie</option>
+<option>Nowa Sarzyna , leżajski , podkarpackie</option>
+<option>Nowa Sól , nowosolski , lubuskie</option>
+<option>Nowe , świecki , kujawsko-pomorskie</option>
+<option>Nowe Brzesko , proszowicki , małopolskie</option>
+<option>Nowe Miasteczko , nowosolski , lubuskie</option>
+<option>Nowe Miasto Lubawskie , nowomiejski , warmińsko-mazurskie</option>
+<option>Nowe Miasto nad Pilicą , grójecki , mazowieckie</option>
+<option>Nowe Skalmierzyce , ostrowski , wielkopolskie</option>
+<option>Nowe Warpno , policki , zachodniopomorskie</option>
+<option>Nowogard , goleniowski , zachodniopomorskie</option>
+<option>Nowogrodziec , bolesławiecki , dolnośląskie</option>
+<option>Nowogród , łomżyński , podlaskie</option>
+<option>Nowogród Bobrzański , zielonogórski , lubuskie</option>
+<option>Nowy Dwór Gdański , nowodworski , pomorskie</option>
+<option>Nowy Dwór Mazowiecki , nowodworski , mazowieckie</option>
+<option>Nowy Sącz , Nowy Sącz , małopolskie</option>
+<option>Nowy Staw , malborski , pomorskie</option>
+<option>Nowy Targ , nowotarski , małopolskie</option>
+<option>Nowy Tomyśl , nowotomyski , wielkopolskie</option>
+<option>Nowy Wiśnicz , bocheński , małopolskie</option>
+<option>Nysa , nyski , opolskie</option>
+<option>Oborniki , obornicki , wielkopolskie</option>
+<option>Oborniki Śląskie , trzebnicki , dolnośląskie</option>
+<option>Obrzycko , szamotulski , wielkopolskie</option>
+<option>Odolanów , ostrowski , wielkopolskie</option>
+<option>Ogrodzieniec , zawierciański , śląskie</option>
+<option>Okonek , złotowski , wielkopolskie</option>
+<option>Olecko , olecki , warmińsko-mazurskie</option>
+<option>Olesno , oleski , opolskie</option>
+<option>Oleszyce , lubaczowski , podkarpackie</option>
+<option>Oleśnica , oleśnicki , dolnośląskie</option>
+<option>Olkusz , olkuski , małopolskie</option>
+<option>Olsztyn , Olsztyn , warmińsko-mazurskie</option>
+<option>Olsztynek , olsztyński , warmińsko-mazurskie</option>
+<option>Olszyna , lubański , dolnośląskie</option>
+<option>Oława , oławski , dolnośląskie</option>
+<option>Opalenica , nowotomyski , wielkopolskie</option>
+<option>Opatów , opatowski , świętokrzyskie</option>
+<option>Opoczno , opoczyński , łódzkie</option>
+<option>Opole , Opole , opolskie</option>
+<option>Opole Lubelskie , opolski , lubelskie</option>
+<option>Orneta , lidzbarski , warmińsko-mazurskie</option>
+<option>Orzesze , mikołowski , śląskie</option>
+<option>Orzysz , piski , warmińsko-mazurskie</option>
+<option>Osieczna , leszczyński , wielkopolskie</option>
+<option>Osiek , staszowski , świętokrzyskie</option>
+<option>Ostrołęka , Ostrołęka , mazowieckie</option>
+<option>Ostroróg , szamotulski , wielkopolskie</option>
+<option>Ostrowiec Świętokrzyski , ostrowiecki , świętokrzyskie</option>
+<option>Ostróda , ostródzki , warmińsko-mazurskie</option>
+<option>Ostrów Lubelski , lubartowski , lubelskie</option>
+<option>Ostrów Mazowiecka , ostrowski , mazowieckie</option>
+<option>Ostrów Wielkopolski , ostrowski , wielkopolskie</option>
+<option>Ostrzeszów , ostrzeszowski , wielkopolskie</option>
+<option>Ośno Lubuskie , słubicki , lubuskie</option>
+<option>Oświęcim , oświęcimski , małopolskie</option>
+<option>Otmuchów , nyski , opolskie</option>
+<option>Otwock , otwocki , mazowieckie</option>
+<option>Ozimek , opolski , opolskie</option>
+<option>Ozorków , zgierski , łódzkie</option>
+<option>Ożarów , opatowski , świętokrzyskie</option>
+<option>Ożarów Mazowiecki , warszawski zachodni , mazowieckie</option>
+<option>Pabianice , pabianicki , łódzkie</option>
+<option>Paczków , nyski , opolskie</option>
+<option>Pajęczno , pajęczański , łódzkie</option>
+<option>Pakość , inowrocławski , kujawsko-pomorskie</option>
+<option>Parczew , parczewski , lubelskie</option>
+<option>Pasłęk , elbląski , warmińsko-mazurskie</option>
+<option>Pasym , szczycieński , warmińsko-mazurskie</option>
+<option>Pelplin , tczewski , pomorskie</option>
+<option>Pełczyce , choszczeński , zachodniopomorskie</option>
+<option>Piaseczno , piaseczyński , mazowieckie</option>
+<option>Piaski , świdnicki , lubelskie</option>
+<option>Piastów , pruszkowski , mazowieckie</option>
+<option>Piechowice , jeleniogórski , dolnośląskie</option>
+<option>Piekary Śląskie , Piekary Śląskie , śląskie</option>
+<option>Pieniężno , braniewski , warmińsko-mazurskie</option>
+<option>Pieńsk , zgorzelecki , dolnośląskie</option>
+<option>Pieszyce , dzierżoniowski , dolnośląskie</option>
+<option>Pilawa , garwoliński , mazowieckie</option>
+<option>Pilica , zawierciański , śląskie</option>
+<option>Pilzno , dębicki , podkarpackie</option>
+<option>Piła , pilski , wielkopolskie</option>
+<option>Piława Górna , dzierżoniowski , dolnośląskie</option>
+<option>Pińczów , pińczowski , świętokrzyskie</option>
+<option>Pionki , radomski , mazowieckie</option>
+<option>Piotrków Kujawski , radziejowski , kujawsko-pomorskie</option>
+<option>Piotrków Trybunalski , Piotrków Trybunalski , łódzkie</option>
+<option>Pisz , piski , warmińsko-mazurskie</option>
+<option>Piwniczna-Zdrój , nowosądecki , małopolskie</option>
+<option>Pleszew , pleszewski , wielkopolskie</option>
+<option>Płock , Płock , mazowieckie</option>
+<option>Płońsk , płoński , mazowieckie</option>
+<option>Płoty , gryficki , zachodniopomorskie</option>
+<option>Pniewy , szamotulski , wielkopolskie</option>
+<option>Pobiedziska , poznański , wielkopolskie</option>
+<option>Poddębice , poddębicki , łódzkie</option>
+<option>Podkowa Leśna , grodziski , mazowieckie</option>
+<option>Pogorzela , gostyński , wielkopolskie</option>
+<option>Polanica-Zdrój , kłodzki , dolnośląskie</option>
+<option>Polanów , koszaliński , zachodniopomorskie</option>
+<option>Police , policki , zachodniopomorskie</option>
+<option>Polkowice , polkowicki , dolnośląskie</option>
+<option>Połaniec , staszowski , świętokrzyskie</option>
+<option>Połczyn-Zdrój , świdwiński , zachodniopomorskie</option>
+<option>Poniatowa , opolski , lubelskie</option>
+<option>Poniec , gostyński , wielkopolskie</option>
+<option>Poręba , zawierciański , śląskie</option>
+<option>Poznań , Poznań , wielkopolskie</option>
+<option>Prabuty , kwidzyński , pomorskie</option>
+<option>Praszka , oleski , opolskie</option>
+<option>Prochowice , legnicki , dolnośląskie</option>
+<option>Proszowice , proszowicki , małopolskie</option>
+<option>Prószków , opolski , opolskie</option>
+<option>Pruchnik , jarosławski , podkarpackie</option>
+<option>Prudnik , prudnicki , opolskie</option>
+<option>Prusice , trzebnicki , dolnośląskie</option>
+<option>Pruszcz Gdański , gdański , pomorskie</option>
+<option>Pruszków , pruszkowski , mazowieckie</option>
+<option>Przasnysz , przasnyski , mazowieckie</option>
+<option>Przecław , mielecki , podkarpackie</option>
+<option>Przedbórz , radomszczański , łódzkie</option>
+<option>Przedecz , kolski , wielkopolskie</option>
+<option>Przemków , polkowicki , dolnośląskie</option>
+<option>Przemyśl , Przemyśl , podkarpackie</option>
+<option>Przeworsk , przeworski , podkarpackie</option>
+<option>Przysucha , przysuski , mazowieckie</option>
+<option>Pszczyna , pszczyński , śląskie</option>
+<option>Pszów , wodzisławski , śląskie</option>
+<option>Puck , pucki , pomorskie</option>
+<option>Puławy , puławski , lubelskie</option>
+<option>Pułtusk , pułtuski , mazowieckie</option>
+<option>Puszczykowo , poznański , wielkopolskie</option>
+<option>Pyrzyce , pyrzycki , zachodniopomorskie</option>
+<option>Pyskowice , gliwicki , śląskie</option>
+<option>Pyzdry , wrzesiński , wielkopolskie</option>
+<option>Rabka-Zdrój , nowotarski , małopolskie</option>
+<option>Raciąż , płoński , mazowieckie</option>
+<option>Racibórz , raciborski , śląskie</option>
+<option>Radków , kłodzki , dolnośląskie</option>
+<option>Radlin , wodzisławski , śląskie</option>
+<option>Radłów , tarnowski , małopolskie</option>
+<option>Radom , Radom , mazowieckie</option>
+<option>Radomsko , radomszczański , łódzkie</option>
+<option>Radomyśl Wielki , mielecki , podkarpackie</option>
+<option>Radymno , jarosławski , podkarpackie</option>
+<option>Radziejów , radziejowski , kujawsko-pomorskie</option>
+<option>Radzionków , tarnogórski , śląskie</option>
+<option>Radzymin , wołomiński , mazowieckie</option>
+<option>Radzyń Chełmiński , grudziądzki , kujawsko-pomorskie</option>
+<option>Radzyń Podlaski , radzyński , lubelskie</option>
+<option>Rajgród , grajewski , podlaskie</option>
+<option>Rakoniewice , grodziski , wielkopolskie</option>
+<option>Raszków , ostrowski , wielkopolskie</option>
+<option>Rawa Mazowiecka , rawski , łódzkie</option>
+<option>Rawicz , rawicki , wielkopolskie</option>
+<option>Recz , choszczeński , zachodniopomorskie</option>
+<option>Reda , wejherowski , pomorskie</option>
+<option>Rejowiec Fabryczny , chełmski , lubelskie</option>
+<option>Resko , łobeski , zachodniopomorskie</option>
+<option>Reszel , kętrzyński , warmińsko-mazurskie</option>
+<option>Rogoźno , obornicki , wielkopolskie</option>
+<option>Ropczyce , ropczycko-sędziszowski , podkarpackie</option>
+<option>Różan , makowski , mazowieckie</option>
+<option>Ruciane-Nida , piski , warmińsko-mazurskie</option>
+<option>Ruda Śląska , Ruda Śląska , śląskie</option>
+<option>Rudnik nad Sanem , niżański , podkarpackie</option>
+<option>Rumia , wejherowski , pomorskie</option>
+<option>Rybnik , Rybnik , śląskie</option>
+<option>Rychwał , koniński , wielkopolskie</option>
+<option>Rydułtowy , wodzisławski , śląskie</option>
+<option>Rydzyna , leszczyński , wielkopolskie</option>
+<option>Ryglice , tarnowski , małopolskie</option>
+<option>Ryki , rycki , lubelskie</option>
+<option>Rymanów , krośnieński , podkarpackie</option>
+<option>Ryn , giżycki , warmińsko-mazurskie</option>
+<option>Rypin , rypiński , kujawsko-pomorskie</option>
+<option>Rzepin , słubicki , lubuskie</option>
+<option>Rzeszów , Rzeszów , podkarpackie</option>
+<option>Rzgów , łódzki wschodni , łódzkie</option>
+<option>Sandomierz , sandomierski , świętokrzyskie</option>
+<option>Sanok , sanocki , podkarpackie</option>
+<option>Sejny , sejneński , podlaskie</option>
+<option>Serock , legionowski , mazowieckie</option>
+<option>Sędziszów , jędrzejowski , świętokrzyskie</option>
+<option>Sędziszów Małopolski , ropczycko-sędziszowski , podkarpackie</option>
+<option>Sępopol , bartoszycki , warmińsko-mazurskie</option>
+<option>Sępólno Krajeńskie , sępoleński , kujawsko-pomorskie</option>
+<option>Sianów , koszaliński , zachodniopomorskie</option>
+<option>Siechnice , wrocławski , dolnośląskie</option>
+<option>Siedlce , Siedlce , mazowieckie</option>
+<option>Siemianowice Śląskie , Siemianowice Śląskie , śląskie</option>
+<option>Siemiatycze , siemiatycki , podlaskie</option>
+<option>Sieniawa , przeworski , podkarpackie</option>
+<option>Sieradz , sieradzki , łódzkie</option>
+<option>Sieraków , międzychodzki , wielkopolskie</option>
+<option>Sierpc , sierpecki , mazowieckie</option>
+<option>Siewierz , będziński , śląskie</option>
+<option>Skalbmierz , kazimierski , świętokrzyskie</option>
+<option>Skała , krakowski , małopolskie</option>
+<option>Skarszewy , starogardzki , pomorskie</option>
+<option>Skaryszew , radomski , mazowieckie</option>
+<option>Skarżysko-Kamienna , skarżyski , świętokrzyskie</option>
+<option>Skawina , krakowski , małopolskie</option>
+<option>Skępe , lipnowski , kujawsko-pomorskie</option>
+<option>Skierniewice , Skierniewice , łódzkie</option>
+<option>Skoczów , cieszyński , śląskie</option>
+<option>Skoki , wągrowiecki , wielkopolskie</option>
+<option>Skórcz , starogardzki , pomorskie</option>
+<option>Skwierzyna , międzyrzecki , lubuskie</option>
+<option>Sława , wschowski , lubuskie</option>
+<option>Sławków , będziński , śląskie</option>
+<option>Sławno , sławieński , zachodniopomorskie</option>
+<option>Słomniki , krakowski , małopolskie</option>
+<option>Słubice , słubicki , lubuskie</option>
+<option>Słupca , słupecki , wielkopolskie</option>
+<option>Słupsk , Słupsk , pomorskie</option>
+<option>Sobótka , wrocławski , dolnośląskie</option>
+<option>Sochaczew , sochaczewski , mazowieckie</option>
+<option>Sokołów Małopolski , rzeszowski , podkarpackie</option>
+<option>Sokołów Podlaski , sokołowski , mazowieckie</option>
+<option>Sokółka , sokólski , podlaskie</option>
+<option>Solec Kujawski , bydgoski , kujawsko-pomorskie</option>
+<option>Sompolno , koniński , wielkopolskie</option>
+<option>Sopot , Sopot , pomorskie</option>
+<option>Sosnowiec , Sosnowiec , śląskie</option>
+<option>Sośnicowice , gliwicki , śląskie</option>
+<option>Stalowa Wola , stalowowolski , podkarpackie</option>
+<option>Starachowice , starachowicki , świętokrzyskie</option>
+<option>Stargard Szczeciński , stargardzki , zachodniopomorskie</option>
+<option>Starogard Gdański , starogardzki , pomorskie</option>
+<option>Stary Sącz , nowosądecki , małopolskie</option>
+<option>Staszów , staszowski , świętokrzyskie</option>
+<option>Stawiski , kolneński , podlaskie</option>
+<option>Stawiszyn , kaliski , wielkopolskie</option>
+<option>Stąporków , konecki , świętokrzyskie</option>
+<option>Stepnica , goleniowski , zachodniopomorskie</option>
+<option>Stęszew , poznański , wielkopolskie</option>
+<option>Stoczek Łukowski , łukowski , lubelskie</option>
+<option>Stopnica , buski , świętokrzyskie</option>
+<option>Stronie Śląskie , kłodzki , dolnośląskie</option>
+<option>Strumień , cieszyński , śląskie</option>
+<option>Stryków , zgierski , łódzkie</option>
+<option>Strzegom , świdnicki , dolnośląskie</option>
+<option>Strzelce Krajeńskie , strzelecko-drezdenecki , lubuskie</option>
+<option>Strzelce Opolskie , strzelecki , opolskie</option>
+<option>Strzelin , strzeliński , dolnośląskie</option>
+<option>Strzelno , mogileński , kujawsko-pomorskie</option>
+<option>Strzyżów , strzyżowski , podkarpackie</option>
+<option>Sucha Beskidzka , suski , małopolskie</option>
+<option>Suchań , stargardzki , zachodniopomorskie</option>
+<option>Suchedniów , skarżyski , świętokrzyskie</option>
+<option>Suchowola , sokólski , podlaskie</option>
+<option>Sulechów , zielonogórski , lubuskie</option>
+<option>Sulejów , piotrkowski , łódzkie</option>
+<option>Sulejówek , miński , mazowieckie</option>
+<option>Sulęcin , sulęciński , lubuskie</option>
+<option>Sulmierzyce , krotoszyński , wielkopolskie</option>
+<option>Sułkowice , myślenicki , małopolskie</option>
+<option>Supraśl , białostocki , podlaskie</option>
+<option>Suraż , białostocki , podlaskie</option>
+<option>Susz , iławski , warmińsko-mazurskie</option>
+<option>Suwałki , Suwałki , podlaskie</option>
+<option>Swarzędz , poznański , wielkopolskie</option>
+<option>Syców , oleśnicki , dolnośląskie</option>
+<option>Szadek , zduńskowolski , łódzkie</option>
+<option>Szamocin , chodzieski , wielkopolskie</option>
+<option>Szamotuły , szamotulski , wielkopolskie</option>
+<option>Szczawnica , nowotarski , małopolskie</option>
+<option>Szczawno-Zdrój , wałbrzyski , dolnośląskie</option>
+<option>Szczebrzeszyn , zamojski , lubelskie</option>
+<option>Szczecin , Szczecin , zachodniopomorskie</option>
+<option>Szczecinek , szczecinecki , zachodniopomorskie</option>
+<option>Szczekociny , zawierciański , śląskie</option>
+<option>Szczucin , dąbrowski , małopolskie</option>
+<option>Szczuczyn , grajewski , podlaskie</option>
+<option>Szczyrk , bielski , śląskie</option>
+<option>Szczytna , kłodzki , dolnośląskie</option>
+<option>Szczytno , szczycieński , warmińsko-mazurskie</option>
+<option>Szepietowo , wysokomazowiecki , podlaskie</option>
+<option>Szklarska Poręba , jeleniogórski , dolnośląskie</option>
+<option>Szlichtyngowa , wschowski , lubuskie</option>
+<option>Szprotawa , żagański , lubuskie</option>
+<option>Sztum , sztumski , pomorskie</option>
+<option>Szubin , nakielski , kujawsko-pomorskie</option>
+<option>Szydłowiec , szydłowiecki , mazowieckie</option>
+<option>Ścinawa , lubiński , dolnośląskie</option>
+<option>Ślesin , koniński , wielkopolskie</option>
+<option>Śmigiel , kościański , wielkopolskie</option>
+<option>Śrem , śremski , wielkopolskie</option>
+<option>Środa Śląska , średzki , dolnośląskie</option>
+<option>Środa Wielkopolska , średzki , wielkopolskie</option>
+<option>Świątniki Górne , krakowski , małopolskie</option>
+<option>Świdnica , świdnicki , dolnośląskie</option>
+<option>Świdnik , świdnicki , lubelskie</option>
+<option>Świdwin , świdwiński , zachodniopomorskie</option>
+<option>Świebodzice , świdnicki , dolnośląskie</option>
+<option>Świebodzin , świebodziński , lubuskie</option>
+<option>Świecie , świecki , kujawsko-pomorskie</option>
+<option>Świeradów-Zdrój , lubański , dolnośląskie</option>
+<option>Świerzawa , złotoryjski , dolnośląskie</option>
+<option>Świętochłowice , Świętochłowice , śląskie</option>
+<option>Świnoujście , Świnoujście , zachodniopomorskie</option>
+<option>Tarczyn , piaseczyński , mazowieckie</option>
+<option>Tarnobrzeg , Tarnobrzeg , podkarpackie</option>
+<option>Tarnogród , biłgorajski , lubelskie</option>
+<option>Tarnowskie Góry , tarnogórski , śląskie</option>
+<option>Tarnów , Tarnów , małopolskie</option>
+<option>Tczew , tczewski , pomorskie</option>
+<option>Terespol , bialski , lubelskie</option>
+<option>Tłuszcz , wołomiński , mazowieckie</option>
+<option>Tolkmicko , elbląski , warmińsko-mazurskie</option>
+<option>Tomaszów Lubelski , tomaszowski , lubelskie</option>
+<option>Tomaszów Mazowiecki , tomaszowski , łódzkie</option>
+<option>Toruń , Toruń , kujawsko-pomorskie</option>
+<option>Torzym , sulęciński , lubuskie</option>
+<option>Toszek , gliwicki , śląskie</option>
+<option>Trzcianka , czarnkowsko-trzcianecki , wielkopolskie</option>
+<option>Trzciel , międzyrzecki , lubuskie</option>
+<option>Trzcińsko-Zdrój , gryfiński , zachodniopomorskie</option>
+<option>Trzebiatów , gryficki , zachodniopomorskie</option>
+<option>Trzebinia , chrzanowski , małopolskie</option>
+<option>Trzebnica , trzebnicki , dolnośląskie</option>
+<option>Trzemeszno , gnieźnieński , wielkopolskie</option>
+<option>Tuchola , tucholski , kujawsko-pomorskie</option>
+<option>Tuchów , tarnowski , małopolskie</option>
+<option>Tuczno , wałecki , zachodniopomorskie</option>
+<option>Tuliszków , turecki , wielkopolskie</option>
+<option>Turek , turecki , wielkopolskie</option>
+<option>Tuszyn , łódzki wschodni , łódzkie</option>
+<option>Twardogóra , oleśnicki , dolnośląskie</option>
+<option>Tychowo , białogardzki , zachodniopomorskie</option>
+<option>Tychy , Tychy , śląskie</option>
+<option>Tyczyn , rzeszowski , podkarpackie</option>
+<option>Tykocin , białostocki , podlaskie</option>
+<option>Tyszowce , tomaszowski , lubelskie</option>
+<option>Ujazd , strzelecki , opolskie</option>
+<option>Ujście , pilski , wielkopolskie</option>
+<option>Ulanów , niżański , podkarpackie</option>
+<option>Uniejów , poddębicki , łódzkie</option>
+<option>Ustka , słupski , pomorskie</option>
+<option>Ustroń , cieszyński , śląskie</option>
+<option>Ustrzyki Dolne , bieszczadzki , podkarpackie</option>
+<option>Wadowice , wadowicki , małopolskie</option>
+<option>Wałbrzych , Wałbrzych , dolnośląskie</option>
+<option>Wałcz , wałecki , zachodniopomorskie</option>
+<option>Warka , grójecki , mazowieckie</option>
+<option>Warszawa , Warszawa , mazowieckie</option>
+<option>Warta , sieradzki , łódzkie</option>
+<option>Wasilków , białostocki , podlaskie</option>
+<option>Wąbrzeźno , wąbrzeski , kujawsko-pomorskie</option>
+<option>Wąchock , starachowicki , świętokrzyskie</option>
+<option>Wągrowiec , wągrowiecki , wielkopolskie</option>
+<option>Wąsosz , górowski , dolnośląskie</option>
+<option>Wejherowo , wejherowski , pomorskie</option>
+<option>Węgliniec , zgorzelecki , dolnośląskie</option>
+<option>Węgorzewo , węgorzewski , warmińsko-mazurskie</option>
+<option>Węgorzyno , łobeski , zachodniopomorskie</option>
+<option>Węgrów , węgrowski , mazowieckie</option>
+<option>Wiązów , strzeliński , dolnośląskie</option>
+<option>Wieleń , czarnkowsko-trzcianecki , wielkopolskie</option>
+<option>Wielichowo , grodziski , wielkopolskie</option>
+<option>Wieliczka , wielicki , małopolskie</option>
+<option>Wieluń , wieluński , łódzkie</option>
+<option>Wieruszów , wieruszowski , łódzkie</option>
+<option>Więcbork , sępoleński , kujawsko-pomorskie</option>
+<option>Wilamowice , bielski , śląskie</option>
+<option>Wisła , cieszyński , śląskie</option>
+<option>Witkowo , gnieźnieński , wielkopolskie</option>
+<option>Witnica , gorzowski , lubuskie</option>
+<option>Wleń , lwówecki , dolnośląskie</option>
+<option>Władysławowo , pucki , pomorskie</option>
+<option>Włocławek , Włocławek , kujawsko-pomorskie</option>
+<option>Włodawa , włodawski , lubelskie</option>
+<option>Włoszczowa , włoszczowski , świętokrzyskie</option>
+<option>Wodzisław Śląski , wodzisławski , śląskie</option>
+<option>Wojcieszów , złotoryjski , dolnośląskie</option>
+<option>Wojkowice , będziński , śląskie</option>
+<option>Wojnicz , tarnowski , małopolskie</option>
+<option>Wolbórz , piotrkowski , łódzkie</option>
+<option>Wolbrom , olkuski , małopolskie</option>
+<option>Wolin , kamieński , zachodniopomorskie</option>
+<option>Wolsztyn , wolsztyński , wielkopolskie</option>
+<option>Wołczyn , kluczborski , opolskie</option>
+<option>Wołomin , wołomiński , mazowieckie</option>
+<option>Wołów , wołowski , dolnośląskie</option>
+<option>Woźniki , lubliniecki , śląskie</option>
+<option>Wrocław , Wrocław , dolnośląskie</option>
+<option>Wronki , szamotulski , wielkopolskie</option>
+<option>Września , wrzesiński , wielkopolskie</option>
+<option>Wschowa , wschowski , lubuskie</option>
+<option>Wyrzysk , pilski , wielkopolskie</option>
+<option>Wysoka , pilski , wielkopolskie</option>
+<option>Wysokie Mazowieckie , wysokomazowiecki , podlaskie</option>
+<option>Wyszków , wyszkowski , mazowieckie</option>
+<option>Wyszogród , płocki , mazowieckie</option>
+<option>Wyśmierzyce , białobrzeski , mazowieckie</option>
+<option>Zabłudów , białostocki , podlaskie</option>
+<option>Zabrze , Zabrze , śląskie</option>
+<option>Zagórów , słupecki , wielkopolskie</option>
+<option>Zagórz , sanocki , podkarpackie</option>
+<option>Zakliczyn , tarnowski , małopolskie</option>
+<option>Zaklików , stalowowolski , podkarpackie</option>
+<option>Zakopane , tatrzański , małopolskie</option>
+<option>Zakroczym , nowodworski , mazowieckie</option>
+<option>Zalewo , iławski , warmińsko-mazurskie</option>
+<option>Zambrów , zambrowski , podlaskie</option>
+<option>Zamość , Zamość , lubelskie</option>
+<option>Zator , oświęcimski , małopolskie</option>
+<option>Zawadzkie , strzelecki , opolskie</option>
+<option>Zawichost , sandomierski , świętokrzyskie</option>
+<option>Zawidów , zgorzelecki , dolnośląskie</option>
+<option>Zawiercie , zawierciański , śląskie</option>
+<option>Ząbki , wołomiński , mazowieckie</option>
+<option>Ząbkowice Śląskie , ząbkowicki , dolnośląskie</option>
+<option>Zbąszynek , świebodziński , lubuskie</option>
+<option>Zbąszyń , nowotomyski , wielkopolskie</option>
+<option>Zduny , krotoszyński , wielkopolskie</option>
+<option>Zduńska Wola , zduńskowolski , łódzkie</option>
+<option>Zdzieszowice , krapkowicki , opolskie</option>
+<option>Zelów , bełchatowski , łódzkie</option>
+<option>Zgierz , zgierski , łódzkie</option>
+<option>Zgorzelec , zgorzelecki , dolnośląskie</option>
+<option>Zielona Góra , Zielona Góra , lubuskie</option>
+<option>Zielonka , wołomiński , mazowieckie</option>
+<option>Ziębice , ząbkowicki , dolnośląskie</option>
+<option>Złocieniec , drawski , zachodniopomorskie</option>
+<option>Złoczew , sieradzki , łódzkie</option>
+<option>Złotoryja , złotoryjski , dolnośląskie</option>
+<option>Złotów , złotowski , wielkopolskie</option>
+<option>Złoty Stok , ząbkowicki , dolnośląskie</option>
+<option>Zwierzyniec , zamojski , lubelskie</option>
+<option>Zwoleń , zwoleński , mazowieckie</option>
+<option>Żabno , tarnowski , małopolskie</option>
+<option>Żagań , żagański , lubuskie</option>
+<option>Żarki , myszkowski , śląskie</option>
+<option>Żarów , świdnicki , dolnośląskie</option>
+<option>Żary , żarski , lubuskie</option>
+<option>Żelechów , garwoliński , mazowieckie</option>
+<option>Żerków , jarociński , wielkopolskie</option>
+<option>Żmigród , trzebnicki , dolnośląskie</option>
+<option>Żnin , żniński , kujawsko-pomorskie</option>
+<option>Żory , Żory , śląskie</option>
+<option>Żukowo , kartuski , pomorskie</option>
+<option>Żuromin , żuromiński , mazowieckie</option>
+<option>Żychlin , kutnowski , łódzkie</option>
+<option>Żyrardów , żyrardowski , mazowieckie</option>
+<option>Żywiec , żywiecki , śląskie</option>
+    </datalist>	

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"  xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+<meta charset="UTF-8">
+<title>TANIE-DAILY.PL - Ogłoszenia motoryzacyjne</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+   	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+    <link rel="stylesheet" href="gallery-grid.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/css/fontawesome-iconpicker.css">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/css/fontawesome-iconpicker.min.css">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.js">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="bootstrap/css/_glyphicons.css"> 
+  <script
+  src="https://code.jquery.com/jquery-2.1.0.js"
+  integrity="sha256-D6d1KSapXjq2tfZ6Ie9AYozkRHyB3fT2ys9mO2+4Wvc="
+  crossorigin="anonymous"></script>
+<script th:src="@{~/jQuery/jquery-main.js}"></script>
+
+  <link rel="stylesheet" id="ao_optimized_gfonts" href="https://fonts.googleapis.com/css?family=Work+Sans">
+  <link rel="stylesheet" th:href="@{~/css/style.css}">
+
+</head>	
+<body onLoad="prajs();">
+<nav class="navbar navbar-expand-lg mx-auto fixed-top " id="naglowek">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"> <i class="fa fa-navicon" style="color:#142355; font-size:28px;"></i></span>
+  </button>
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+<a th:href="@{/}"><button class="btn ml-0 logo-button"  id="dodaj">tanie-daily.pl</button></a>
+	<ul class="navbar-nav mr-auto mx-auto">
+	  
+	<a th:href="@{/samochody}"><li class="btn nav-item text-center type-button" value="car"><i class="fa fa-car"></i><br>
+        Samochody
+      </li>
+      </a>
+      	<a th:href="@{/motocykle}"><li class=" btn nav-item text-center type-button" value="moto"><i class="fa fa-motorcycle"></i><br>
+        Motocykle
+      </li>
+      </a>
+          <a th:href="@{/czesci}"><li value="parts" class="btn nav-item type-button text-center"><i class="fa fa-cogs"></i><br>
+        Części
+      </li>
+      </a>
+      
+      </ul>
+      	  <a th:href="@{/o-mnie}"><li value="omnie" class="btn nav-item type-button mr-3"><i class="fa fa-user"></i><br>
+        O mnie
+      </li>
+      </a>
+      
+      <a th:href="@{/nowe-ogloszenie}"><button class="btn mr-0 add-advertisement-button"  id="dodaj"><i class="fa fa-plus"></i>&nbsp;&nbsp;Dodaj ogłoszenie</button></a>
+
+</div>
+</nav>
+
+
+<div class="container">
+	<div class="row">
+	
+		<div class="col-10 mx-auto rounded filter-pane">
+				
+				Aktywacja mailowa
+				
+		</div>
+		
+
+	</div>
+	
+
+		<div class="row col-10 mx-auto rounded result-pane " th:if="${active == 'mail'}">
+			<p class="h4 ml-4 font-weight-light mx-auto text-center"><i class="fa fa-envelope-open text-primary " style="font-size:100px;">&nbsp;</i><br><br>Na podany przez Ciebie adres email <br>wysłaliśmy link aktywacyjny ogłoszenie</p>
+			
+			<br><br>
+				
+				<p class="ml-5"><span class="text-justify">
+											  
+				</span></p>
+		</div>
+	
+		
+		<div class="row col-10 mx-auto rounded result-pane " th:if="${active == 'brak'}">
+			<p class="h4 ml-4 font-weight-light mx-auto text-center"><i class="fa fa-times text-danger " style="font-size:100px;">&nbsp;</i><br><br>UPS! Ogłoszenie nie istnieje!</p>
+			
+				<p class="ml-5"><span class="text-justify">
+											  
+				</span></p>
+		</div>
+		
+		<div class="row col-10 mx-auto rounded result-pane " th:if="${active == 'aktywuje'}">
+			<p class="h4 ml-4 font-weight-light mx-auto text-center"><i class="fa fa-envelope-open text-success" style="font-size:100px;">&nbsp;</i><br><br>Pomyślnie aktywowano ogłoszenie
+			<br> Możesz już do niego przejść, klikając w ten link:
+			<br> <a th:href="@{'/ogloszenie/' + ${id}}"><button class="btn add-advertisement-button"  id="przejdzDo">&nbsp;&nbsp;Przejdź do ogłoszenia&nbsp;&nbsp;<i class="fa fa-chevron-right"></i></button></a>
+			<br>
+			<br>
+			Za chwilę wyślemy do Ciebie wiadomość email, która posłuży Ci do zarządzania ogłoszeniem - edycją, usunięciem.
+<br>		Ogłoszenie będzie aktywne przez 2 tygodni. <br> O <u>darmowym</u> przedłużeniu poinformujemy Cię wiadomością email.
+<br>		Udanej sprzedaży!
+
+			</p>
+			
+				<p class="ml-5"><span class="text-justify">
+											  
+				</span></p>
+		</div>
+		
+		<div class="row col-10 mx-auto rounded result-pane " th:if="${active == 'aktywne'}">
+			<p class="h4 ml-4 font-weight-light mx-auto text-center"><i class="fa fa-info text-info" style="font-size:100px;">&nbsp;</i><br><br>Ogłoszenie jest już aktywne!
+			
+			<br>
+			<br>
+			<a th:href="@{'/ogloszenie/' + ${id}}"><button class="btn add-advertisement-button"  id="przejdzDo">&nbsp;&nbsp;Przejdź do ogłoszenia&nbsp;&nbsp;<i class="fa fa-chevron-right"></i></button></a>
+			
+			</p>
+			
+				<p class="ml-5"><span class="text-justify">
+											  
+				</span></p>
+		</div>
+		
+
+		
+		
+		
+		</div>
+		
+		
+		
+				<div class="row col-10 mx-auto rounded result-pane ">
+		
+
+	
+</tr>
+		
+			<div style="margin-bottom:10%;"></div>
+		
+	</div>
+	
+	
+<div class="footer text-center sticky fixed-bottom">gruzidla.pl</div>
+
+</body>
+</html>

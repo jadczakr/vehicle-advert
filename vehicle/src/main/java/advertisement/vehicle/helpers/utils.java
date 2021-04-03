@@ -177,7 +177,7 @@ public class utils {
 		        // Get the Session object.// and pass username and password
 		        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 		            protected PasswordAuthentication getPasswordAuthentication() {
-		                return new PasswordAuthentication("jadczakr@edc.expert", "Kupagnoju9(1");
+		                return new PasswordAuthentication(login@mail.com,password);
 		            }
 		        });
 		        // Used to debug SMTP issues

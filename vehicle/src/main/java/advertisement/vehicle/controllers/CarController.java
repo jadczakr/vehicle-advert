@@ -24,7 +24,7 @@ import java.util.*;
 
 
 
-@RestController
+@Controller
 public class CarController {
 
 	private AdvertisementServiceImpl advertisementServiceImpl;
